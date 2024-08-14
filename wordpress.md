@@ -1,10 +1,16 @@
-# Wordpress Site
+# [WordPress](https://hub.docker.com/_/wordpress)
 
-Creates a Wordpress instance with MySQL and PhpMyAdmin
+This Docker Compose configuration sets up a complete WordPress environment with three services: WordPress, MySQL, and PhpMyAdmin.
 
-## Script
+- **MySQL** serves as the database for WordPress, storing all the site’s data.
+- **PhpMyAdmin** provides an easy-to-use web interface to manage the MySQL database.
+- **WordPress** is the content management system (CMS) that powers your website, ready to run on a customizable local server.
 
-```
+This setup allows for easy deployment and management of a WordPress site with persistent data storage and a user-friendly database management interface.
+
+## Docker compose
+
+```yaml
 services:
   db:
     container_name: db
