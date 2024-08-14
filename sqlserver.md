@@ -1,19 +1,32 @@
-## SQLServer
-### Command Line
+## Microsoft SQLServer Docker Setup [\*](https://hub.docker.com/r/microsoft/mssql-server)
+
+This Docker configuration sets up an instance of Microsoft SQL Server, a relational database management system. It includes a command-line example for quick deployment and a `docker-compose` script for managing the service in a project.
+
+| **Argument**  | **Description**                                                   |
+| ------------- | ----------------------------------------------------------------- |
+| `ACCEPT_EULA` | Required to accept Microsoft's End-User License Agreement (EULA). |
+| `SA_PASSWORD` | Sets the password for the system administrator (SA) account.      |
+
+### Docker command
+
 ```bash
-docker run --name database -e ACCEPT_EULA=Y -e SA_PASSWORD=password123 -p 1433:1433 -d mcr.microsoft.com/mssql/server:latest
+docker run --name database \
+  -e ACCEPT_EULA=Y \
+  -e SA_PASSWORD=password123 \
+  -p 1433:1433 \
+  -d mcr.microsoft.com/mssql/server:latest
 ```
 
-### Script
-```dockerfile
-version: '3.8'
+### Docker compose
+
+```yaml
 services:
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: my-sqlserver
     restart: always
     ports:
-      - "1433:1433"
+      - '1433:1433'
     environment:
       SA_PASSWORD: password123
       ACCEPT_EULA: Y

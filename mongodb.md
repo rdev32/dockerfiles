@@ -1,9 +1,9 @@
-## [MongoDB](https://hub.docker.com/_/mongo)
+## MongoDB Docker Setup [\*](https://hub.docker.com/_/mongo)
 
 This Docker configuration sets up an instance of MongoDB, a popular NoSQL database, with user-defined credentials. It also provides a `docker-compose` script to manage the service in a project setup.
 
-| **Parameter**                | **Explanation**                                         |
-| ---------------------------- | ------------------------------------------------------- |
+| **Parameter**                | **Explanation**                        |
+| ---------------------------- | -------------------------------------- |
 | `MONGO_INITDB_ROOT_USERNAME` | The username for the MongoDB root user |
 | `MONGO_INITDB_ROOT_PASSWORD` | The password for the MongoDB root user |
 
