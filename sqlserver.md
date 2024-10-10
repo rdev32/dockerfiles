@@ -10,11 +10,7 @@ This Docker configuration sets up an instance of Microsoft SQL Server, a relatio
 ### Docker command
 
 ```bash
-docker run --name database \
-  -e ACCEPT_EULA=Y \
-  -e SA_PASSWORD=password123 \
-  -p 1433:1433 \
-  -d mcr.microsoft.com/mssql/server:latest
+docker run --name mssql-tests -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Password123" -e "MSSQL_PID=Express" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
 ```
 
 ### Docker compose
@@ -28,7 +24,8 @@ services:
     ports:
       - '1433:1433'
     environment:
-      SA_PASSWORD: password123
+      MSSQL_PID: Express
+      MSSQL_SA_PASSWORD: Password123
       ACCEPT_EULA: Y
 
 volumes:
