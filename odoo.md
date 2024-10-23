@@ -31,41 +31,73 @@ docker run --name odoo \
 
 ### Docker compose
 
+Create a folder named `/addons` in the same place where you put the `docker-compose.yml` file. All addons will be loaded directly into the instance.
+
 ```yaml
 services:
   db:
-    image: postgres:13
-    container_name: odoo-db
+    image: postgres:15
+    container_name: data
     restart: always
     environment:
       POSTGRES_DB: odoo
       POSTGRES_USER: odoo
-      POSTGRES_PASSWORD: odoo123
-    volumes:
-      - odoo-db-data:/var/lib/postgresql/data
-    networks:
-      - odoo-network
+      POSTGRES_DB: postgres
+      PGDATA: /var/lib/postgresql/data/pgdata
 
   odoo:
     image: odoo:17.0
     container_name: odoo
+    ports:
+      - "8069:8069"
+    volumes:
+      - ./config:/etc/odoo
+      - ./addons:/mnt/extra-addons
     depends_on:
       - db
-    ports:
-      - '8069:8069'
-    environment:
-      ODOO_DB_HOST: db
-      ODOO_DB_USER: odoo
-      ODOO_DB_PASSWORD: odoo123
-    volumes:
-      - odoo-data:/var/lib/odoo
-    networks:
-      - odoo-network
+```
 
-volumes:
-  odoo-db-data:
-  odoo-data:
+#### Settings
 
-networks:
-  odoo-network:
+Create a file named `odoo.conf` inside a `/config` directory in the same place you put the `docker-compose.yml` with the following content.<br>
+_Feel free to change any setting_ this will change the behaviour of your instance.
+
+```
+[options]
+addons_path = /mnt/extra-addons
+data_dir = /var/lib/odoo
+; admin_passwd = admin
+; csv_internal_sep = ,
+; db_maxconn = 64
+; db_name = False
+; db_template = template1
+; dbfilter = .*
+; debug_mode = False
+; email_from = False
+; limit_memory_hard = 2684354560
+; limit_memory_soft = 2147483648
+; limit_request = 8192
+; limit_time_cpu = 60
+; limit_time_real = 120
+; list_db = True
+; log_db = False
+; log_handler = [':INFO']
+log_level = debug
+; logfile = /var/log/odoo/odoo.log
+; longpolling_port = 8072
+; max_cron_threads = 2
+; osv_memory_age_limit = 1.0
+; osv_memory_count_limit = False
+; smtp_password = False
+; smtp_port = 25
+; smtp_server = localhost
+; smtp_ssl = False
+; smtp_user = False
+; workers = 0
+; xmlrpc = True
+; xmlrpc_interface =
+; xmlrpc_port = 8069
+; xmlrpcs = True
+; xmlrpcs_interface =
+; xmlrpcs_port = 8071
 ```
