@@ -40,8 +40,8 @@ services:
     container_name: data
     restart: always
     environment:
-      POSTGRES_DB: odoo
       POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
       POSTGRES_DB: postgres
       PGDATA: /var/lib/postgresql/data/pgdata
 
